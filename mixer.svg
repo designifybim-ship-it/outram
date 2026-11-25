@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 480" width="600" height="480">
+  <title>MT-480 two-bag diesel concrete mixer</title>
+  <style>
+    .drum-rock{transform-box:fill-box;transform-origin:50% 60%;animation:rock 4s ease-in-out infinite}
+    .fins{animation:fins 1.8s linear infinite}
+    @keyframes rock{0%,100%{transform:rotate(0)}50%{transform:rotate(-2deg)}}
+    @keyframes fins{to{transform:translateX(-46px)}}
+    @media (prefers-reduced-motion:reduce){.drum-rock,.fins{animation:none}}
+  </style>
+  <defs>
+    <linearGradient id="drumG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFDB5C"/>
+      <stop offset=".42" stop-color="#FFC000"/>
+      <stop offset="1" stop-color="#D99A00"/>
+    </linearGradient>
+    <linearGradient id="coneG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFD03A"/>
+      <stop offset="1" stop-color="#C98C00"/>
+    </linearGradient>
+    <linearGradient id="frameG" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFC000"/>
+      <stop offset="1" stop-color="#E5AC00"/>
+    </linearGradient>
+    <linearGradient id="engG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2B2B2B"/>
+      <stop offset="1" stop-color="#111111"/>
+    </linearGradient>
+    <clipPath id="bodyClip">
+      <path d="M230 52 Q295 44 360 52 L360 208 Q295 216 230 208 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- ground shadow -->
+  <ellipse cx="300" cy="448" rx="250" ry="14" fill="#111111" opacity=".13"/>
+
+  <!-- tow bar and hitch -->
+  <path d="M56 344 L176 336" stroke="#111111" stroke-width="13" stroke-linecap="round"/>
+  <path d="M66 352 L150 380" stroke="#111111" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="50" cy="344" r="15" fill="none" stroke="#111111" stroke-width="8"/>
+  <circle cx="50" cy="344" r="4" fill="#FFC000"/>
+  <!-- jockey stand -->
+  <path d="M140 342 L140 410" stroke="#111111" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="140" cy="420" r="13" fill="#111111"/>
+  <circle cx="140" cy="420" r="5" fill="#FFC000"/>
+
+  <!-- chassis -->
+  <rect x="160" y="322" width="380" height="24" rx="6" fill="#111111"/>
+  <rect x="168" y="328" width="364" height="4" rx="2" fill="#FFC000" opacity=".55"/>
+
+  <!-- yellow frame posts holding the drum -->
+  <path d="M250 322 L282 196 L310 196 L292 322 Z" fill="url(#frameG)" stroke="#111111" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M372 322 L336 196 L310 196 L338 322 Z" fill="url(#frameG)" stroke="#111111" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="300" cy="200" r="12" fill="#111111"/>
+  <circle cx="300" cy="200" r="5" fill="#FFC000"/>
+
+  <!-- tilt handwheel -->
+  <g>
+    <path d="M300 200 L205 248" stroke="#111111" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="200" cy="252" r="26" fill="none" stroke="#111111" stroke-width="7"/>
+    <path d="M200 228 V276 M176 252 H224" stroke="#111111" stroke-width="4"/>
+    <circle cx="200" cy="252" r="5" fill="#FFC000"/>
+  </g>
+
+  <!-- drum (tilted, opening up and to the left) -->
+  <g transform="rotate(-22 290 130)">
+    <g class="drum-rock">
+      <!-- rear cone -->
+      <path d="M360 52 L405 90 L405 170 L360 208 Z" fill="url(#coneG)" stroke="#111111" stroke-width="3.5" stroke-linejoin="round"/>
+      <rect x="403" y="104" width="22" height="52" rx="5" fill="#111111"/>
+      <!-- body -->
+      <path d="M230 52 Q295 44 360 52 L360 208 Q295 216 230 208 Z" fill="url(#drumG)"/>
+      <!-- mixing fins seen through -->
+      <g clip-path="url(#bodyClip)">
+        <g class="fins" fill="#111111" opacity=".09">
+          <path d="M240 40 l14 0 -26 190 -14 0z"/>
+          <path d="M286 40 l14 0 -26 190 -14 0z"/>
+          <path d="M332 40 l14 0 -26 190 -14 0z"/>
+          <path d="M378 40 l14 0 -26 190 -14 0z"/>
+          <path d="M424 40 l14 0 -26 190 -14 0z"/>
+        </g>
+      </g>
+      <!-- ring gear band -->
+      <rect x="316" y="47" width="18" height="166" fill="#E5AC00" stroke="#111111" stroke-width="3"/>
+      <path d="M325 49 V211" stroke="#111111" stroke-width="7" stroke-dasharray="3 4" opacity=".75"/>
+      <!-- body outline -->
+      <path d="M230 52 Q295 44 360 52 L360 208 Q295 216 230 208 Z" fill="none" stroke="#111111" stroke-width="3.5" stroke-linejoin="round"/>
+      <!-- highlight -->
+      <path d="M244 70 Q285 63 308 66" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" opacity=".6"/>
+      <!-- peak mark on drum -->
+      <g transform="translate(262 116)">
+        <path d="M0 18 L14 4 L28 18" fill="none" stroke="#111111" stroke-width="5" stroke-linejoin="miter"/>
+        <path d="M8 24 L14 18 L20 24 Z" fill="#111111"/>
+      </g>
+      <!-- front cone -->
+      <path d="M230 52 L172 92 L172 168 L230 208 Z" fill="url(#coneG)" stroke="#111111" stroke-width="3.5" stroke-linejoin="round"/>
+      <path d="M200 74 L200 186" stroke="#111111" stroke-width="2.5" opacity=".35"/>
+      <!-- opening -->
+      <ellipse cx="172" cy="130" rx="13" ry="38" fill="#111111"/>
+      <ellipse cx="174" cy="130" rx="6" ry="27" fill="#3A3A3A"/>
+    </g>
+  </g>
+
+  <!-- belt guard between engine and drum -->
+  <path d="M362 230 L420 252 L420 286 L352 262 Z" fill="#111111"/>
+
+  <!-- fuel tank -->
+  <rect x="438" y="182" width="92" height="44" rx="9" fill="#FFC000" stroke="#111111" stroke-width="3.5"/>
+  <rect x="452" y="192" width="40" height="8" rx="3" fill="#FFFFFF" opacity=".55"/>
+  <rect x="504" y="168" width="16" height="16" rx="3" fill="#111111"/>
+  <path d="M484 226 V250" stroke="#111111" stroke-width="5"/>
+
+  <!-- engine box -->
+  <rect x="418" y="248" width="128" height="76" rx="9" fill="url(#engG)"/>
+  <g stroke="#FFC000" stroke-width="4" stroke-linecap="round" opacity=".9">
+    <path d="M434 266 H530"/>
+    <path d="M434 279 H530"/>
+  </g>
+  <text x="482" y="309" text-anchor="middle" font-family="Montserrat, Arial, Helvetica, sans-serif" font-size="15" font-weight="800" fill="#FFC000">9 HP DIESEL</text>
+  <!-- exhaust -->
+  <rect x="528" y="222" width="11" height="28" rx="2" fill="#111111"/>
+  <rect x="524" y="216" width="19" height="8" rx="2" fill="#2B2B2B"/>
+  <!-- pull starter -->
+  <circle cx="548" cy="286" r="7" fill="#111111"/>
+
+  <!-- wheel -->
+  <g>
+    <circle cx="318" cy="382" r="56" fill="#111111"/>
+    <circle cx="318" cy="382" r="44" fill="none" stroke="#2E2E2E" stroke-width="6" stroke-dasharray="7 6"/>
+    <circle cx="318" cy="382" r="26" fill="#FFC000" stroke="#111111" stroke-width="3"/>
+    <circle cx="318" cy="382" r="9" fill="#111111"/>
+    <circle cx="318" cy="368" r="2.6" fill="#111111"/>
+    <circle cx="331" cy="386" r="2.6" fill="#111111"/>
+    <circle cx="305" cy="386" r="2.6" fill="#111111"/>
+  </g>
+  <!-- mudguard -->
+  <path d="M252 352 Q318 300 384 352" fill="none" stroke="#FFC000" stroke-width="10" stroke-linecap="round"/>
+  <path d="M252 352 Q318 300 384 352" fill="none" stroke="#111111" stroke-width="3" stroke-linecap="round" transform="translate(0 6)"/>
+</svg>
