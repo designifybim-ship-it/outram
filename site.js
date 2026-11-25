@@ -440,4 +440,89 @@
     }
     setOn(0);
   }
+  /* ---------- Journey page: Ijariah's posts, written in the dashboard ---------- */
+  var jList = $("#journal-list"), jEmpty = $("#journal-empty"), jPost = $("#journal-post");
+  if (jList && jPost) {
+    var jesc = function (s) { return String(s || "").replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
+    var okImg = function (s) { return /^data:image\/(jpeg|png|webp);base64,/.test(s) || /^https:\/\//.test(s); };
+    var jDate = function (d) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(d || "")) return "";
+      return new Date(d + "T12:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+    };
+    var prose = function (t) {
+      return String(t || "").replace(/\r\n/g, "\n").split(/\n\s*\n/).map(function (b) {
+        b = b.trim();
+        if (!b) return "";
+        if (/^##\s+/.test(b)) {
+          var nl = b.indexOf("\n");
+          var hd = "<h2>" + jesc((nl < 0 ? b : b.slice(0, nl)).replace(/^##\s+/, "")) + "</h2>";
+          return nl < 0 ? hd : hd + "<p>" + jesc(b.slice(nl + 1).trim()).replace(/\n/g, "<br>") + "</p>";
+        }
+        if (/^>/.test(b)) return '<blockquote><p>' + jesc(b.replace(/^>\s?/gm, "")).replace(/\n/g, "<br>") + "</p></blockquote>";
+        return "<p>" + jesc(b).replace(/\n/g, "<br>") + "</p>";
+      }).join("");
+    };
+    var readMins = function (t) { var w = (String(t || "").match(/\S+/g) || []).length; return Math.max(1, Math.round(w / 220)) + " min read"; };
+    var postId = (location.search.match(/[?&]post=([^&#]+)/) || [])[1];
+    postId = postId ? decodeURIComponent(postId) : "";
+    var showEmpty = function (msg) {
+      jList.innerHTML = "";
+      if (msg) { var m = $("#journal-empty-msg"); if (m) m.textContent = msg; }
+      if (jEmpty) jEmpty.hidden = false;
+    };
+    var C2 = window.OUTRAM_FIREBASE || {};
+    if (!C2.apiKey || !C2.projectId || String(C2.apiKey).indexOf("PASTE") === 0 || !window.fetch) {
+      showEmpty();
+    } else {
+      var aurl = "https://firestore.googleapis.com/v1/projects/" + encodeURIComponent(C2.projectId) +
+        "/databases/(default)/documents/public/site/articles?pageSize=100&key=" + encodeURIComponent(C2.apiKey);
+      fetchJSON(aurl).then(function (d) {
+        var posts = (d.documents || []).map(function (x) {
+          var f = x.fields || {};
+          return { id: String(x.name || "").split("/").pop(), title: strVal(f.title), summary: strVal(f.summary), body: strVal(f.body),
+            cover: strVal(f.cover), date: strVal(f.date) };
+        }).filter(function (a) { return a.title; })
+          .sort(function (a, b) { return (b.date || "").localeCompare(a.date || ""); });
+
+        if (postId) {
+          var a = posts.filter(function (x) { return x.id === postId; })[0];
+          jList.hidden = true;
+          if (!a) {
+            jPost.innerHTML = '<a class="more-link back" href="journal.html">&lsaquo; All stories</a><h1>That story isn’t available</h1><p>It may have been taken down or moved. Have a look at the other stories instead.</p>';
+            jPost.hidden = false;
+            return;
+          }
+          doc.title = a.title + " | Outram journey";
+          var share = "https://wa.me/?text=" + encodeURIComponent(a.title + " " + location.href);
+          var i = posts.indexOf(a), next = posts[i + 1];
+          jPost.innerHTML = '<a class="more-link back" href="journal.html">&lsaquo; All stories</a>' +
+            '<p class="post-date">' + jDate(a.date) + (a.date ? " · " : "") + readMins(a.body) + "</p>" +
+            "<h1>" + jesc(a.title) + "</h1>" +
+            (a.summary ? '<p class="story-sum">' + jesc(a.summary) + "</p>" : "") +
+            '<p class="story-by"><b>Ijariah Outram</b>Founder of Outram</p>' +
+            (okImg(a.cover) ? '<img class="story-cover" src="' + jesc(a.cover) + '" alt="">' : "") +
+            '<div class="prose">' + prose(a.body) + "</div>" +
+            '<div class="story-foot"><a class="btn btn-black" href="' + share + '" target="_blank" rel="noopener">Share on WhatsApp</a>' +
+            (next ? '<a class="more-link" href="journal.html?post=' + encodeURIComponent(next.id) + '">Next story: ' + jesc(next.title) + " &rsaquo;</a>"
+                  : '<a class="more-link" href="journal.html">All stories &rsaquo;</a>') + "</div>";
+          jPost.hidden = false;
+          return;
+        }
+        if (!posts.length) return showEmpty();
+        jList.innerHTML = posts.map(function (a, k) {
+          var href = "journal.html?post=" + encodeURIComponent(a.id);
+          var img = okImg(a.cover);
+          return '<article class="post' + (img ? "" : " nocover") + (k === 0 ? " lead" : "") + '">' +
+            (img ? '<a class="post-cover" href="' + href + '" tabindex="-1" aria-hidden="true"><img src="' + jesc(a.cover) + '" alt="" loading="lazy"></a>' : "") +
+            '<div class="post-tx"><p class="post-date">' + jDate(a.date) + (a.date ? " · " : "") + readMins(a.body) + "</p>" +
+            '<h2><a href="' + href + '">' + jesc(a.title) + "</a></h2>" +
+            (a.summary ? "<p>" + jesc(a.summary) + "</p>" : "") +
+            '<a class="more-link" href="' + href + '">Read the story &rsaquo;</a></div></article>';
+        }).join("");
+      }).catch(function () {
+        if (postId) { jList.hidden = true; jPost.hidden = false; jPost.innerHTML = '<a class="more-link back" href="journal.html">&lsaquo; All stories</a><h1>Couldn’t load this story</h1><p>Check your connection and refresh the page.</p>'; return; }
+        showEmpty("Couldn’t load the stories right now. Check your connection and refresh the page.");
+      });
+    }
+  }
 })();
