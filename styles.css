@@ -547,6 +547,23 @@ select{appearance:none;-webkit-appearance:none;background-image:url("data:image/
 .vs-panel li .ai{width:22px;height:22px;margin-top:2px}
 .xmark{width:22px;height:22px;flex-shrink:0;margin-top:2px}
 
+/* mixers for sale (from the dashboard) */
+.sale-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px}
+.sale-card{background:#fff;border-radius:14px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.sale-img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.sale-img.none{display:flex;align-items:center;justify-content:center}
+.sale-img.none .ai{width:96px;height:96px}
+.sale-body{padding:22px 24px 24px;display:flex;flex-direction:column;gap:6px;flex:1}
+.sale-body .tag{align-self:flex-start;margin-bottom:4px}
+.sale-body h3{font-size:19px}
+.sale-cond{font-size:14px;color:var(--muted)}
+.sale-price{font-size:20px;font-weight:800;color:var(--black)}
+.sale-desc{font-size:15px}
+.sale-body .btn{margin-top:auto;align-self:flex-start}
+.sale-body .sale-desc+.btn,.sale-body .sale-price+.btn{margin-top:14px}
+@media (max-width:900px){.sale-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.sale-grid{grid-template-columns:1fr}}
+
 /* glance */
 .glance{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
 .glance>*{min-width:0}

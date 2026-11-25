@@ -18,6 +18,7 @@
   var EMAIL = "outrammixers@gmail.com";
   var STORE = "outram-booking-v3";
   var MAX_DAYS = 120;
+  var FULL = {}; /* days when every rental mixer is booked (from the dashboard) */
 
   var SVC = {
     rental:    { name: "Mixer rental",       title: "Tell us about the rental",  sub: "How many mixers, for how long, and what you're building.", when: "Delivery date" },
@@ -230,7 +231,7 @@
     if (asapRow) asapRow.hidden = s !== "emergency";
     var addrOpt = $("#addr-opt");
     if (addrOpt) addrOpt.hidden = s !== "asphalt";
-    if (calKey) calKey.textContent = "Sundays & public holidays closed \u00b7 Earliest: " + (s === "emergency" ? "today" : "tomorrow");
+    if (calKey) calKey.textContent = (s === "rental" ? "Sundays, public holidays & fully booked days closed" : "Sundays & public holidays closed") + " \u00b7 Earliest: " + (s === "emergency" ? "today" : "tomorrow");
     /* a chosen date that is no longer allowed (e.g. today after leaving emergency) is cleared */
     if (state.date && !dayAllowed(fromKey(state.date))) state.date = "";
     applyAsap();
@@ -259,6 +260,7 @@
     if (+d === +t && svc() !== "emergency") return false;
     if (d.getDay() === 0) return false;
     if (holidayName(d)) return false;
+    if (svc() === "rental" && FULL[key(d)]) return false;
     if (d > addDays(t, MAX_DAYS)) return false;
     return true;
   }
@@ -283,9 +285,10 @@
       var d = new Date(state.viewY, state.viewM, dnum);
       var k = key(d), hol = holidayName(d), ok = dayAllowed(d);
       var cls = "cal-day" + (+d === +t ? " today" : "") + (state.date === k ? " sel" : "");
-      var label = longDate(d) + (hol ? ", " + hol + ", closed" : (d.getDay() === 0 ? ", closed" : (!ok ? ", not available" : "")));
+      var full = !hol && d.getDay() !== 0 && svc() === "rental" && FULL[k];
+      var label = longDate(d) + (hol ? ", " + hol + ", closed" : (d.getDay() === 0 ? ", closed" : (full ? ", fully booked" : (!ok ? ", not available" : ""))));
       html += '<button type="button" class="' + cls + '" data-day="' + k + '"' + (ok ? "" : " disabled") +
-        (hol ? ' title="' + hol + '"' : "") + ' aria-label="' + label + '"' + (state.date === k ? ' aria-pressed="true"' : ' aria-pressed="false"') + ">" + dnum + "</button>";
+        (hol ? ' title="' + hol + '"' : (full ? ' title="Fully booked"' : "")) + ' aria-label="' + label + '"' + (state.date === k ? ' aria-pressed="true"' : ' aria-pressed="false"') + ">" + dnum + "</button>";
     }
     calGrid.innerHTML = html;
   }
@@ -605,4 +608,19 @@
   renderCount();
   applyService();
   go(state.step, { noScroll: true });
+
+  /* live availability from the Outram dashboard */
+  if (window.outramLive) {
+    window.outramLive().then(function (live) {
+      FULL = live.fullDates || {};
+      if (!Object.keys(FULL).length) return;
+      if (state.date && !dayAllowed(fromKey(state.date))) {
+        state.date = "";
+        if (state.step === 3 && errEl) errEl.textContent = "That day just filled up. Please pick another date.";
+        update();
+      }
+      renderCal();
+      if (state.step === 6) renderReview();
+    });
+  }
 })();

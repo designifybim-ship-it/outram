@@ -341,6 +341,70 @@
     });
   });
 
+  /* ---------- Live data from the Outram dashboard (Firebase, read-only) ---------- */
+  var liveP = null;
+  function strVal(f) { return f && (f.stringValue != null ? f.stringValue : f.integerValue != null ? String(f.integerValue) : ""); }
+  function fetchJSON(url) {
+    var ctrl = ("AbortController" in window) ? new AbortController() : null;
+    var t = setTimeout(function () { if (ctrl) ctrl.abort(); }, 8000);
+    return fetch(url, ctrl ? { signal: ctrl.signal } : {}).then(function (r) {
+      clearTimeout(t);
+      if (r.status === 404) return {};
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    });
+  }
+  window.outramLive = function () {
+    if (liveP) return liveP;
+    var C = window.OUTRAM_FIREBASE || {};
+    if (!C.apiKey || !C.projectId || String(C.apiKey).indexOf("PASTE") === 0 || !window.fetch) {
+      liveP = Promise.resolve({ fullDates: {}, listings: [] });
+      return liveP;
+    }
+    var base = "https://firestore.googleapis.com/v1/projects/" + encodeURIComponent(C.projectId) + "/databases/(default)/documents/public/site";
+    var key = "key=" + encodeURIComponent(C.apiKey);
+    var site = fetchJSON(base + "?" + key).then(function (d) {
+      var out = {};
+      var vals = d && d.fields && d.fields.fullDates && d.fields.fullDates.arrayValue && d.fields.fullDates.arrayValue.values || [];
+      vals.forEach(function (v) { if (v.stringValue) out[v.stringValue] = true; });
+      return out;
+    }).catch(function () { return {}; });
+    var list = fetchJSON(base + "/listings?pageSize=100&" + key).then(function (d) {
+      return (d.documents || []).map(function (x) {
+        var f = x.fields || {};
+        return { id: String(x.name || "").split("/").pop(), title: strVal(f.title), condition: strVal(f.condition), price: strVal(f.price),
+          desc: strVal(f.desc), status: strVal(f.status) || "Available", photo: strVal(f.photo), created: strVal(f.created) };
+      });
+    }).catch(function () { return []; });
+    liveP = Promise.all([site, list]).then(function (r) { return { fullDates: r[0], listings: r[1] }; });
+    return liveP;
+  };
+
+  /* ---------- Buy page: mixers for sale ---------- */
+  var saleSec = $("#for-sale"), saleGrid = $("#sale-grid");
+  if (saleSec && saleGrid) {
+    var esc = function (s) { return String(s || "").replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
+    window.outramLive().then(function (live) {
+      var items = live.listings.filter(function (l) { return l.status !== "Sold" && l.title; })
+        .sort(function (a, b) { return (a.status === "Reserved") - (b.status === "Reserved") || b.created.localeCompare(a.created); });
+      if (!items.length) return;
+      saleGrid.innerHTML = items.map(function (l) {
+        var ask = "https://wa.me/12468223288?text=" + encodeURIComponent("Hi Outram, I'm interested in the " + l.title + " you have for sale.");
+        var photo = /^data:image\/(jpeg|png|webp);base64,/.test(l.photo) || /^https:\/\//.test(l.photo)
+          ? '<img class="sale-img" src="' + esc(l.photo) + '" alt="' + esc(l.title) + '" loading="lazy">'
+          : '<div class="sale-img none cream"><svg class="ai xl" viewBox="0 0 24 24" aria-hidden="true"><path class="o" d="M9 15l-3 5.5M13.2 14l3.2 3.6"/><g class="a-churn"><g transform="rotate(-32 11 9.5)"><path class="y" d="M6.5 4.5h7.5l4.5 3v4l-4.5 3H6.5a2.5 2.5 0 0 1-2.5-2.5v-5a2.5 2.5 0 0 1 2.5-2.5z"/></g></g><g class="a-spin"><circle class="o w" cx="17.8" cy="19.1" r="2.1"/><path class="o" d="M17.8 17.6v3"/></g></svg></div>';
+        return '<article class="sale-card">' + photo +
+          '<div class="sale-body">' + (l.status === "Reserved" ? '<span class="tag black">Reserved</span>' : "") +
+          "<h3>" + esc(l.title) + "</h3>" + (l.condition ? '<p class="sale-cond">' + esc(l.condition) + "</p>" : "") +
+          '<p class="sale-price">' + (l.price ? esc(l.price) : "Message for price") + "</p>" +
+          (l.desc ? '<p class="sale-desc">' + esc(l.desc) + "</p>" : "") +
+          '<a class="btn btn-black" href="' + ask + '" target="_blank" rel="noopener">Ask about this one</a></div></article>';
+      }).join("");
+      saleSec.hidden = false;
+      if (window.outramIcons) window.outramIcons.watch(saleSec);
+    });
+  }
+
   /* ---------- Rent page: mixer hotspots ---------- */
   var spot = $(".spot");
   if (spot) {

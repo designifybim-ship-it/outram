@@ -1,0 +1,34 @@
+rules_version = '2';
+// Outram security rules. Paste into Firebase console > Firestore Database > Rules, then Publish.
+// Replace the UIDs with the User UID of each owner account (Firebase console > Authentication > Users).
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isOwner() {
+      return request.auth != null
+        && request.auth.uid in ['PASTE_IJARIAH_UID', 'PASTE_ARIEL_UID'];
+    }
+
+    // Private business data: customers, bookings, invoices, payments, expenses, settings.
+    match /admin/{document=**} {
+      allow read, write: if isOwner();
+    }
+
+    // Public summary the website reads: fully booked dates.
+    match /public/site {
+      allow read: if true;
+      allow write: if isOwner();
+    }
+
+    // Mixers for sale shown on the Buy page.
+    match /public/site/listings/{listingId} {
+      allow read: if true;
+      allow write: if isOwner();
+    }
+
+    // Everything else is closed.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
