@@ -391,7 +391,7 @@ function waNum(p){let d=String(p||'').replace(/\D/g,'');if(d.length===7)d='1246'
 function wa(phone,text){const n=waNum(phone);window.open('https://wa.me/'+n+'?text='+encodeURIComponent(text),'_blank')}
 
 /* nav */
-const PAGES=[['home','Home','growth-chart'],['bookings','Bookings','agreement-clipboard'],['calendar','Calendar','booking-calendar'],['customers','Customers','customers'],['mixers','Mixers','concrete-mixer'],['sale','For sale','cash'],['journal','Journey','pen'],['docs','Quotes & invoices','invoice'],['payments','Payments & receipts','cash-payment'],['expenses','Expenses','receipt'],['settings','Settings & backup','toolbox']];
+const PAGES=[['home','Home','growth-chart'],['bookings','Bookings','agreement-clipboard'],['calendar','Calendar','booking-calendar'],['customers','Customers','customers'],['agreements','Agreements','agreement-clipboard'],['mixers','Mixers','concrete-mixer'],['sale','For sale','cash'],['journal','Journey','pen'],['docs','Quotes & invoices','invoice'],['payments','Payments & receipts','cash-payment'],['expenses','Expenses','receipt'],['settings','Settings & backup','toolbox']];
 function nav(){$('#nav').innerHTML=PAGES.map(([k,t,i])=>`<a href="#${k}" data-k="${k}"><span class="ico-w">${ic(i,'b')}</span><span class="ico-k">${ic(i,'k')}</span>${t}</a>`).join('')}
 function page(){return (location.hash||'#home').slice(1).split('/')[0]||'home'}
 function render(){const p=page();document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.dataset.k===p));$('#side').classList.remove('open');(V[p]||V.home)();window.scrollTo(0,0)}
@@ -756,6 +756,13 @@ function printAgreement(bid,bw){
  blocks.push(`<div class="sig"><div class="h">For ${esc(AGR_CO)}</div>${agrFld('Print name','')}${agrFld('Signature','')}${agrFld('Date','')}</div>${c?`<div class="note">Renter: ${esc(c.name)}${b?' · '+esc(mname(b.mixerId))+', '+fd(b.start)+' to '+fd(b.end):''}</div>`:''}`);
  doPrint(agrPaginate(blocks,meta,bw),'Outram rental agreement'+(c?' - '+c.name:'')+(bw?' (B&W)':''));
 }
+V.agreements=function(){
+ const B=DB.bookings.slice().sort((a,b)=>(b.start||'').localeCompare(a.start||''));
+ let h=hdr('Agreements','Rental agreement & liability waiver for each booking',`<button class="btn" onclick="printAgreement(null,false)">${ic('agreement-clipboard')}Blank (colour)</button><button class="btn" onclick="printAgreement(null,true)">Blank (black &amp; white)</button>`);
+ h+=`<div class="banner">${ic('info')}<div>Each agreement fills in the customer, mixer, dates and delivery site from the booking. Print the <b>colour</b> version, or <b>black &amp; white</b> to save ink. Use a <b>blank</b> one to fill in by hand.</div></div>`;
+ h+=B.length?`<div class="card"><div class="tw"><table><tr><th>Customer</th><th>Mixer</th><th>Rental</th><th>Status</th><th></th></tr>${B.map(b=>{const c=cust(b.customerId);return`<tr><td><b>${esc(c?c.name:'')}</b>${c&&c.phone?`<div class="meta">${esc(c.phone)}</div>`:''}</td><td>${esc(mname(b.mixerId))}</td><td>${fd(b.start)} to ${fd(b.end)}</td><td>${bkPill(b.status)}</td><td><div class="acts" style="gap:8px;justify-content:flex-end"><button class="btn sm y" onclick="printAgreement('${b.id}',false)">Colour</button><button class="btn sm" onclick="printAgreement('${b.id}',true)">Black &amp; white</button></div></td></tr>`}).join('')}</table></div></div>`
+ :`<div class="card">${emptyBox('agreement-clipboard','Add a booking and its agreement shows up here, filled in and ready to print. You can still print a blank one using the buttons above.',`<button class="btn sm y" onclick="location.hash='bookings'">Go to bookings</button>`)}</div>`;
+ $('#main').innerHTML=h};
 
 /* ---------- FOR SALE (shown on the website's Buy page) ---------- */
 const SALE_ST=['Available','Reserved','Sold'];
