@@ -175,8 +175,7 @@ legend{padding:0}
 .site-header .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:20px}
 .site-header.stuck{position:fixed;height:76px;background:#fff;box-shadow:0 8px 30px -14px rgba(0,0,0,.25)}
 .brand{display:flex;align-items:center;flex-shrink:0}
-.brand img{height:54px;width:auto;transition:height .3s}
-.site-header.stuck .brand img{height:46px}
+.brand img{height:46px;width:auto}
 .brand .logo-white{display:none}
 .site-header.stuck .brand .logo-gold{display:none}
 .site-header.stuck .brand .logo-white{display:block}
@@ -845,7 +844,6 @@ button.g-tile:hover img{transform:scale(1.04)}
   .head-actions .btn-phone .txt{display:none}
   .head-actions .btn-phone{padding:10px 12px}
   .site-header .wrap{gap:12px}
-  .brand img{height:46px}
   .hero{padding:130px 0 140px}
   .hero-grid,.split,.split.wide-left,.ask-grid,.banner-grid,.spot,.glance,.logo-meaning,.pay-grid,.panel-grid,.head-row{grid-template-columns:1fr}
   .head-row{align-items:start;gap:16px}
@@ -875,7 +873,6 @@ button.g-tile:hover img{transform:scale(1.04)}
   .wrap{padding:0 18px}
   .head-actions .btn-book{display:none}
   .brand img{height:40px}
-  .site-header.stuck .brand img{height:38px}
   .hero h1{font-size:38px}
   .btn-row .btn,.or-pair .btn{width:100%}
   .or-pair{flex-direction:column;align-items:stretch}
