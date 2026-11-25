@@ -170,22 +170,40 @@ label.fl{display:flex;flex-direction:column;gap:5px;font-size:13.5px;font-weight
 }
 /* print */
 
+
+/* ---- rental agreement (prints like the invoices) ---- */
+.doc + .doc{break-before:page;page-break-before:always}
+.doc .agr h2{font-size:15px;margin:0 0 3mm;font-weight:700;display:flex;align-items:center;gap:8px}
+.doc .agr h2:before{content:"";width:5px;height:16px;border-radius:2px;background:#FFC000}
+.doc .agr h3{font-size:13px;margin:5mm 0 2mm;font-weight:700}
+.doc .agr .flds{display:grid;grid-template-columns:1fr 1fr;gap:3mm 8mm;margin-bottom:2mm}
+.doc .agr .fld .l{color:#666;font-size:11px}
+.doc .agr .fld .v{border-bottom:1.2px solid #151515;min-height:7mm;padding:1mm 0 .5mm;font-weight:600;font-size:13px}
+.doc .agr .fld.wide{grid-column:1/-1}
+.doc .agr ol{margin:0;padding:0;list-style:none;counter-reset:t}
+.doc .agr ol li{counter-increment:t;display:grid;grid-template-columns:7mm 1fr;gap:2mm;margin:0 0 2.6mm;line-height:1.5}
+.doc .agr ol li:before{content:counter(t);width:6mm;height:6mm;border-radius:4px;background:#151515;color:#FFC000;font-weight:700;font-size:11px;display:flex;align-items:center;justify-content:center;margin-top:.3mm}
+.doc .agr p{margin:0 0 2.6mm;line-height:1.5}
+.doc .agr .ack{background:#faf7ef;border-radius:10px;padding:4mm 5mm;margin:6mm 0 5mm}
+.doc .agr .sig{display:grid;grid-template-columns:1fr 1fr 32mm;gap:8mm;margin-top:12mm}
+.doc .agr .sig .v{min-height:12mm}
+.doc .agr .note{font-size:11px;color:#666;margin-top:6mm}
 /* ---- cloud login ---- */
-.lg{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;padding:20px;background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='84'%3E%3Cpath d='M8 28L21 15L34 28' fill='none' stroke='%23FFC000' stroke-width='3.8' opacity='0.22'/%3E%3Cpath d='M15 32L21 26L27 32Z' fill='%23FFC000' opacity='0.22'/%3E%3Cpath d='M50 70L63 57L76 70' fill='none' stroke='%23FFC000' stroke-width='3.8' opacity='0.22'/%3E%3Cpath d='M57 74L63 68L69 74Z' fill='%23FFC000' opacity='0.22'/%3E%3C/svg%3E");background-size:64px 64px}
-.lg[hidden]{display:none}
-.lg .box{background:#fff;border-radius:var(--r);box-shadow:0 1px 0 var(--line),0 18px 50px rgba(21,21,21,.12);padding:32px 30px 26px;width:100%;max-width:410px}
-.lg .lg-logo{width:230px;margin:0 auto 18px;line-height:0}
-.lg .lg-logo svg{width:100%;height:auto}
-.lg h1{font-size:22px;margin:0 0 4px;text-align:center}
-.lg .lg-sub{color:var(--mut);text-align:center;margin:0 0 20px;font-size:14px}
-.lg form{display:flex;flex-direction:column;gap:12px}
-.lg .btn{justify-content:center;width:100%}
-.lg .lg-msg{min-height:20px;font-size:13.5px;font-weight:600;color:#9a4a00;text-align:center;margin-top:12px}
-.lg .link{background:none;border:0;padding:4px;color:var(--k);text-decoration:underline;font-weight:600;cursor:pointer;font-size:13.5px}
-.lg .setup{display:none;font-size:14px;color:#444}
-.lg[data-mode=setup] .setup{display:block}
-.lg[data-mode=setup] form,.lg[data-mode=loading] form{display:none}
-.lg[data-mode=loading] .lg-msg{color:var(--k)}
+.lgn{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;padding:20px;background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='84'%3E%3Cpath d='M8 28L21 15L34 28' fill='none' stroke='%23FFC000' stroke-width='3.8' opacity='0.22'/%3E%3Cpath d='M15 32L21 26L27 32Z' fill='%23FFC000' opacity='0.22'/%3E%3Cpath d='M50 70L63 57L76 70' fill='none' stroke='%23FFC000' stroke-width='3.8' opacity='0.22'/%3E%3Cpath d='M57 74L63 68L69 74Z' fill='%23FFC000' opacity='0.22'/%3E%3C/svg%3E");background-size:64px 64px}
+.lgn[hidden]{display:none}
+.lgn .box{background:#fff;border-radius:var(--r);box-shadow:0 1px 0 var(--line),0 18px 50px rgba(21,21,21,.12);padding:32px 30px 26px;width:100%;max-width:410px}
+.lgn .lg-logo{width:230px;margin:0 auto 18px;line-height:0}
+.lgn .lg-logo svg{width:100%;height:auto}
+.lgn h1{font-size:22px;margin:0 0 4px;text-align:center}
+.lgn .lg-sub{color:var(--mut);text-align:center;margin:0 0 20px;font-size:14px}
+.lgn form{display:flex;flex-direction:column;gap:12px}
+.lgn .btn{justify-content:center;width:100%}
+.lgn .lg-msg{min-height:20px;font-size:13.5px;font-weight:600;color:#9a4a00;text-align:center;margin-top:12px}
+.lgn .link{background:none;border:0;padding:4px;color:var(--k);text-decoration:underline;font-weight:600;cursor:pointer;font-size:13.5px}
+.lgn .setup{display:none;font-size:14px;color:#444}
+.lgn[data-mode=setup] .setup{display:block}
+.lgn[data-mode=setup] form,.lgn[data-mode=loading] form{display:none}
+.lgn[data-mode=loading] .lg-msg{color:var(--k)}
 .sync{font-weight:600}
 .sync.ok{color:#8fd8a4}.sync.busy{color:#FFDC5C}.sync.bad{color:#ff9b9b}
 .side .foot .who{display:block;color:#ddd;overflow-wrap:anywhere;margin-top:2px}
@@ -248,7 +266,7 @@ label.fl{display:flex;flex-direction:column;gap:5px;font-size:13.5px;font-weight
 </style>
 </head>
 <body>
-<div class="lg" id="login" data-mode="loading">
+<div class="lgn" id="login" data-mode="loading">
  <div class="box">
   <div class="lg-logo" id="lg-logo"></div>
   <h1>Outram Dashboard</h1>
@@ -259,7 +277,7 @@ label.fl{display:flex;flex-direction:column;gap:5px;font-size:13.5px;font-weight
    <button class="btn y" id="lg-go" type="submit">Sign in</button>
    <button class="link" id="lg-forgot" type="button">Forgot password?</button>
   </form>
-  <div class="setup"><b>Almost ready.</b> This dashboard isn't connected to its Firebase project yet. Fill in <code>firebase-config.js</code> in the website folder, then refresh this page.</div>
+  <div class="setup"><b>Almost ready.</b> This dashboard isn't connected to its Firebase project yet, so it can't sign in or save. You can still look around with sample data.<button class="btn y" id="lg-preview" type="button" style="margin-top:14px">Preview with sample data</button><span class="meta" style="display:block;margin-top:8px;text-align:center">Nothing is saved in preview.</span></div>
   <div class="lg-msg" id="lg-msg" role="status" aria-live="polite">Loading…</div>
  </div>
 </div>
@@ -425,9 +443,9 @@ V.bookings=function(){
  let list=DB.bookings.filter(b=>bf==='All'||(bf==='Active'?(b.status==='Booked'||b.status==='Out on site'):b.status===bf));
  if(bq)list=list.filter(b=>(cname(b.customerId)+' '+mname(b.mixerId)+' '+(b.parish||'')).toLowerCase().includes(bq.toLowerCase()));
  list.sort((a,b)=>bf==='Returned'||bf==='All'?b.start.localeCompare(a.start):a.start.localeCompare(b.start));
- let h=hdr('Bookings','Rentals, deliveries and returns',`<button class="btn" onclick="location.hash='calendar'">${ic('booking-calendar')}Calendar</button><button class="btn y" onclick="editBooking()">${ic('booking-calendar','k')}New booking</button>`);
+ let h=hdr('Bookings','Rentals, deliveries and returns',`<button class="btn" onclick="printAgreement()">${ic('agreement-clipboard')}Blank agreement</button><button class="btn" onclick="location.hash='calendar'">${ic('booking-calendar')}Calendar</button><button class="btn y" onclick="editBooking()">${ic('booking-calendar','k')}New booking</button>`);
  h+=`<div class="tools"><div class="tabs">${['Active','Booked','Out on site','Returned','Cancelled','All'].map(t=>`<button class="${t===bf?'on':''}" onclick="bf='${t}';V.bookings()">${t}</button>`).join('')}</div><input class="search" placeholder="Search customer, mixer or parish" value="${esc(bq)}" oninput="bq=this.value;V.bookings();const s=document.querySelector('.search');s.focus();s.setSelectionRange(s.value.length,s.value.length)"></div>`;
- h+=`<div class="card">${list.length?`<div class="tw"><table><tr><th>Customer</th><th>Mixer</th><th>Dates</th><th>Parish</th><th>Status</th><th class="r">Total</th><th></th></tr>${list.map(b=>{const inv=DB.docs.find(d=>d.bookingId===b.id&&d.type==='invoice');return`<tr><td class="b">${esc(cname(b.customerId))}</td><td>${esc(mname(b.mixerId))}</td><td>${fd(b.start)} to ${fd(b.end)}<div class="small muted">${days(b.start,b.end)} day${days(b.start,b.end)===1?'':'s'}</div></td><td>${esc(b.parish||'')}</td><td>${bkPill(b.status)}</td><td class="r">${money(bkTotal(b))}</td><td><div class="act">${b.status==='Booked'?`<button class="btn sm k" onclick="setBk('${b.id}','Out on site')">Delivered</button>`:''}${b.status==='Out on site'?`<button class="btn sm k" onclick="setBk('${b.id}','Returned')">Returned</button>`:''}${inv?`<button class="btn sm" onclick="printDoc('${inv.id}')">${esc(inv.no)}</button>`:`<button class="btn sm y" onclick="invoiceFromBooking('${b.id}')">Invoice</button>`}<button class="btn sm" onclick="editBooking('${b.id}')">Edit</button></div></td></tr>`}).join('')}</table></div>`:emptyBox('booking-calendar','No bookings here.',`<button class="btn sm y" onclick="editBooking()">New booking</button>`)}</div>`;
+ h+=`<div class="card">${list.length?`<div class="tw"><table><tr><th>Customer</th><th>Mixer</th><th>Dates</th><th>Parish</th><th>Status</th><th class="r">Total</th><th></th></tr>${list.map(b=>{const inv=DB.docs.find(d=>d.bookingId===b.id&&d.type==='invoice');return`<tr><td class="b">${esc(cname(b.customerId))}</td><td>${esc(mname(b.mixerId))}</td><td>${fd(b.start)} to ${fd(b.end)}<div class="small muted">${days(b.start,b.end)} day${days(b.start,b.end)===1?'':'s'}</div></td><td>${esc(b.parish||'')}</td><td>${bkPill(b.status)}</td><td class="r">${money(bkTotal(b))}</td><td><div class="act">${b.status==='Booked'?`<button class="btn sm k" onclick="setBk('${b.id}','Out on site')">Delivered</button>`:''}${b.status==='Out on site'?`<button class="btn sm k" onclick="setBk('${b.id}','Returned')">Returned</button>`:''}${inv?`<button class="btn sm" onclick="printDoc('${inv.id}')">${esc(inv.no)}</button>`:`<button class="btn sm y" onclick="invoiceFromBooking('${b.id}')">Invoice</button>`}<button class="btn sm" onclick="printAgreement('${b.id}')">Agreement</button><button class="btn sm" onclick="editBooking('${b.id}')">Edit</button></div></td></tr>`}).join('')}</table></div>`:emptyBox('booking-calendar','No bookings here.',`<button class="btn sm y" onclick="editBooking()">New booking</button>`)}</div>`;
  $('#main').innerHTML=h};
 function setBk(id,s){const b=DB.bookings.find(x=>x.id===id);b.status=s;save();toast(s==='Out on site'?'Marked as delivered':'Marked as returned');render()}
 function editBooking(id,pre={}){
@@ -606,6 +624,43 @@ function demo(){if((DB.customers.length||DB.bookings.length)&&!confirm('Add samp
  save();toast('Sample data loaded');render()}
 
 
+
+/* ---------- RENTAL AGREEMENT (prints like the invoices) ---------- */
+const AGR_TERMS=[
+ ['Condition of Equipment','The Renter acknowledges that the Equipment has been received in good condition. It must be returned in comparable condition, accounting for reasonable wear and tear.'],
+ ['Usage and Safety','The Renter must adhere to all manufacturer safety and usage guidelines. The Equipment must not be tampered with inappropriately.'],
+ ['Supervision','The Equipment shall not be used by children without appropriate adult supervision.'],
+ ['Restrictions','The Renter agrees not to loan or sublet the equipment to any other individuals or organizations.'],
+ ['Repossession','The Renter grants Outram Concrete & Asphalt Solutions Inc. the right to enter the Renter’s premises at any time to repossess the Equipment.'],
+ ['Maintenance and Repair','If a malfunction occurs, the Renter must call the company immediately to report it for exchange or repair. The Renter shall not attempt independent repairs.']];
+const AGR_WAIVER=[
+ ['Assumption of Risk','The Renter assumes all responsibility for any damage to the Equipment or injury to persons resulting from the use of the Equipment during the rental period.'],
+ ['Release of Liability','The Renter agrees to release and hold harmless Outram Concrete & Asphalt Solutions Inc. from any and all claims arising from the use of the equipment.'],
+ ['Damages','In the event the “hold harmless” clause is found legally unenforceable, the Renter agrees to limit any damages claimed.'],
+ ['Costs','The Renter agrees to pay all repair or replacement costs, including labor, incurred due to damage during the rental period.']];
+function agrFld(label,v,wide){return`<div class="fld${wide?' wide':''}"><div class="l">${label}</div><div class="v">${v?esc(v):''}</div></div>`}
+function agrList(items){return`<ol>${items.map(([h,t])=>`<li><div><b>${esc(h)}:</b> ${esc(t)}</div></li>`).join('')}</ol>`}
+function printAgreement(bid){
+ const b=bid?DB.bookings.find(x=>x.id===bid):null;const c=b?cust(b.customerId):null;const m=b?mixer(b.mixerId):null;
+ const contact=c?[c.phone,c.email].filter(Boolean).join(' · '):'';
+ const home=c?[c.address,c.parish].filter(Boolean).join(', '):'';
+ const equip=m?[m.name,m.serial,m.model].filter(Boolean).join(' · '):'';
+ const site=b?[b.site,b.parish].filter(Boolean).join(', '):'';
+ const when=d=>d?fd(d)+'     Time: ________':'';
+ const meta=[['Date',fd(today())]];if(b)meta.push(['Rental',`${fd(b.start)} to ${fd(b.end)}`]);
+ const p1=`<div class="agr"><h2>Section 1: Rental agreement</h2>
+  <h3>Renter details</h3><div class="flds">${agrFld('Full name',c&&c.name,true)}${agrFld('Contact information',contact)}${agrFld('Home address',home)}</div>
+  <h3>Rental particulars</h3><div class="flds">${agrFld('Equipment reference #',equip,true)}${agrFld('Rental start date / time',b&&when(b.start))}${agrFld('Rental end date / time',b&&when(b.end))}${b?agrFld('Delivery site',site,true):''}</div>
+  <h3>Terms and conditions</h3>${agrList(AGR_TERMS)}</div>`;
+ const p2=`<div class="agr"><h2>Section 2: Liability waiver &amp; release</h2>
+  <h3>Responsibility for care</h3><p>It is the responsibility of the Renter to ensure all possible precautions are taken to prevent risk of personal injury or damage to the equipment. The Equipment remains the sole responsibility of the Renter from the time of check-out until it is returned.</p>
+  <h3>Indemnification and release</h3>${agrList(AGR_WAIVER)}
+  <h3>Acknowledgment and signature</h3><div class="ack">By signing below, I acknowledge that I have read, understood, and agreed to the terms of both the Rental Agreement and the Liability Waiver.</div>
+  <div class="sig">${agrFld('Print name','')}${agrFld('Signature','')}${agrFld('Date','')}</div>
+  ${c?`<div class="note">Renter: ${esc(c.name)}${b?' · '+esc(mname(b.mixerId))+', '+fd(b.start)+' to '+fd(b.end):''}</div>`:''}</div>`;
+ const html=docShell('Rental agreement','',meta,p1)+docShell('Liability waiver','',meta,p2);
+ doPrint(html,'Outram rental agreement'+(c?' - '+c.name:''));
+}
 /* ---------- FOR SALE (shown on the website's Buy page) ---------- */
 const SALE_ST=['Available','Reserved','Sold'];
 let LPH='';
@@ -650,9 +705,7 @@ window.startApp=function(){nav();updBk();window.addEventListener('hashchange',re
 /* Outram dashboard: Firebase login + cloud sync.
    Private records live under admin/main (only the owner accounts can read or write them).
    The public website reads only public/site (fully booked dates) and public/site/listings (mixers for sale). */
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, getDoc, getDocs, collection, writeBatch } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const FB = "https://www.gstatic.com/firebasejs/10.12.2/";
 
 const CFG = window.OUTRAM_FIREBASE || {};
 const $l = (id) => document.getElementById(id);
@@ -668,11 +721,21 @@ function screen(mode, msg) {
 
 if (!CFG.apiKey || String(CFG.apiKey).indexOf("PASTE") === 0) {
   screen("setup", "");
+  const pv = $l("lg-preview");
+  if (pv) pv.addEventListener("click", () => {
+    screen("app");
+    const s = $l("sync"); if (s) { s.textContent = "Preview: nothing is saved"; s.className = "sync busy"; }
+    const so = document.querySelector(".side .foot .so"); if (so) so.style.display = "none";
+    window.startApp();
+    window.demo();
+  });
 } else {
-  start();
+  Promise.all([import(FB + "firebase-app.js"), import(FB + "firebase-auth.js"), import(FB + "firebase-firestore.js")])
+    .then(([a, b, c]) => start(a, b, c))
+    .catch((err) => { console.warn("Outram: couldn't load Firebase", err); screen("login", "Couldn't connect. Check your internet connection and refresh the page."); $l("lg-form").style.display = "none"; });
 }
 
-function start() {
+function start({ initializeApp }, { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail }, { getFirestore, doc, getDoc, getDocs, collection, writeBatch }) {
   const app = initializeApp(CFG);
   const auth = getAuth(app);
   const db = getFirestore(app);

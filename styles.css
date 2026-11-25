@@ -684,7 +684,6 @@ button.g-tile:hover img{transform:scale(1.04)}
 .bb-map .pn{font-family:var(--font);font-weight:700;font-size:15px;fill:var(--black);text-anchor:middle;pointer-events:none}
 .bb-map .base{pointer-events:none}
 .bb-hint{font-size:14px;color:var(--muted);margin-top:10px;font-weight:600}
-@media (max-width:600px){.bb-map .pn{font-size:17px}}
 
 /* layouts without the 2D illustration */
 .hero-grid.solo{grid-template-columns:1fr;max-width:900px;text-align:center}
