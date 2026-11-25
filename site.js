@@ -512,7 +512,7 @@
         jList.innerHTML = posts.map(function (a, k) {
           var href = "journal.html?post=" + encodeURIComponent(a.id);
           var img = okImg(a.cover);
-          return '<article class="post' + (img ? "" : " nocover") + (k === 0 ? " lead" : "") + '">' +
+          return '<article class="post' + (img ? "" : " nocover") + (k === 0 ? " first" : "") + '">' +
             (img ? '<a class="post-cover" href="' + href + '" tabindex="-1" aria-hidden="true"><img src="' + jesc(a.cover) + '" alt="" loading="lazy"></a>' : "") +
             '<div class="post-tx"><p class="post-date">' + jDate(a.date) + (a.date ? " · " : "") + readMins(a.body) + "</p>" +
             '<h2><a href="' + href + '">' + jesc(a.title) + "</a></h2>" +
