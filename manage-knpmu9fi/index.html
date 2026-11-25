@@ -173,21 +173,59 @@ label.fl{display:flex;flex-direction:column;gap:5px;font-size:13.5px;font-weight
 
 /* ---- rental agreement (prints like the invoices) ---- */
 .doc + .doc{break-before:page;page-break-before:always}
-.doc .agr h2{font-size:15px;margin:0 0 3mm;font-weight:700;display:flex;align-items:center;gap:8px}
+.doc.agrdoc{padding-top:13mm}
+.doc .wm{position:absolute;left:50%;top:52%;width:150mm;transform:translate(-50%,-50%) rotate(-24deg);line-height:0;filter:grayscale(1);opacity:.055;pointer-events:none;z-index:0}
+.doc .wm svg{width:100%;height:auto}
+.doc.agrdoc > *:not(.wm):not(.pat){position:relative;z-index:1}
+.doc .ah{display:flex;justify-content:space-between;align-items:center;gap:10mm}
+.doc .ah .lg{width:66mm;line-height:0}
+.doc .ah .lg svg{width:100%;height:auto}
+.doc .ah .ct{display:grid;gap:1.6mm;text-align:right;font-size:11.5px}
+.doc .ah .ct div{display:flex;align-items:center;justify-content:flex-end;gap:2.4mm}
+.doc .ah .ct svg{width:4.6mm;height:4.6mm;flex:0 0 auto}
+.doc .ah .ct b{font-weight:600}
+.doc.agrdoc .bar{margin:7mm 0 6mm}
+.doc .at{display:flex;justify-content:space-between;align-items:flex-end;gap:10mm;margin-bottom:7mm}
+.doc .at h1{margin:0;font-size:26px;line-height:1.1;font-weight:700}
+.doc .at .sub{font-size:13px;color:#666;margin-top:1.5mm;font-weight:500}
+.doc .at table{border-collapse:collapse}
+.doc .at td{padding:.6mm 0 .6mm 5mm;font-size:11.5px;text-align:right}
+.doc .at td:first-child{color:#666}
+.doc .agr h2{font-size:15px;margin:0 0 4mm;font-weight:700;display:flex;align-items:center;gap:8px}
 .doc .agr h2:before{content:"";width:5px;height:16px;border-radius:2px;background:#FFC000}
-.doc .agr h3{font-size:13px;margin:5mm 0 2mm;font-weight:700}
-.doc .agr .flds{display:grid;grid-template-columns:1fr 1fr;gap:3mm 8mm;margin-bottom:2mm}
+.doc .agr h3{font-size:13px;margin:7mm 0 3mm;font-weight:700}
+.doc .agr .flds{display:grid;grid-template-columns:1fr 1fr;gap:3.5mm 8mm;margin-bottom:1mm}
 .doc .agr .fld .l{color:#666;font-size:11px}
 .doc .agr .fld .v{border-bottom:1.2px solid #151515;min-height:7mm;padding:1mm 0 .5mm;font-weight:600;font-size:13px}
 .doc .agr .fld.wide{grid-column:1/-1}
 .doc .agr ol{margin:0;padding:0;list-style:none;counter-reset:t}
-.doc .agr ol li{counter-increment:t;display:grid;grid-template-columns:7mm 1fr;gap:2mm;margin:0 0 2.6mm;line-height:1.5}
-.doc .agr ol li:before{content:counter(t);width:6mm;height:6mm;border-radius:4px;background:#151515;color:#FFC000;font-weight:700;font-size:11px;display:flex;align-items:center;justify-content:center;margin-top:.3mm}
-.doc .agr p{margin:0 0 2.6mm;line-height:1.5}
-.doc .agr .ack{background:#faf7ef;border-radius:10px;padding:4mm 5mm;margin:6mm 0 5mm}
-.doc .agr .sig{display:grid;grid-template-columns:1fr 1fr 32mm;gap:8mm;margin-top:12mm}
+.doc .agr ol li{counter-increment:t;display:grid;grid-template-columns:8mm 1fr;gap:2.5mm;margin:0 0 4.6mm;line-height:1.62}
+.doc .agr ol li:before{content:counter(t);width:6.4mm;height:6.4mm;border-radius:4px;background:#151515;color:#FFC000;font-weight:700;font-size:11px;display:flex;align-items:center;justify-content:center;margin-top:.2mm}
+.doc .agr ol li b{display:block;margin-bottom:.6mm}
+.doc .agr p{margin:0 0 3mm;line-height:1.62}
+.doc .agr .ack{background:#faf7ef;border-radius:10px;padding:4.5mm 5mm;margin:6mm 0 5mm;line-height:1.55}
+.doc .agr .sig{display:grid;grid-template-columns:1fr 1fr 32mm;gap:3mm 8mm;margin-top:9mm}
+.doc .agr .sig .h{grid-column:1/-1;font-weight:700;font-size:12px}
 .doc .agr .sig .v{min-height:12mm}
 .doc .agr .note{font-size:11px;color:#666;margin-top:6mm}
+.doc.cont .ah .lg{width:42mm}
+.doc.cont .cont-t{text-align:right;font-size:12px}
+.doc.cont .cont-t span{display:block;color:#666;margin-top:1mm}
+.doc.cont .bar{margin:5mm 0 7mm}
+/* black & white printing: no gold, no black blocks */
+.doc.bw .pat{display:none}
+.doc.bw .ah .lg,.doc.bw .ah .ct svg{filter:grayscale(1)}
+.doc.bw .bar{height:0;border-top:1.6px solid #151515;background:none;border-radius:0}
+.doc.bw .agr h2:before{background:#151515}
+.doc.bw .agr ol li:before{background:#fff;color:#151515;box-shadow:inset 0 0 0 1.4px #151515}
+.doc.bw .agr .ack{background:none;border:1.4px solid #151515}
+.doc.bw .df{background:none;color:#151515;border-top:1.6px solid #151515;border-radius:0;margin-left:0;margin-right:0;padding:5mm 0 9mm}
+.doc.bw .df .sl{color:#151515}
+.doc.bw .df svg{filter:grayscale(1) brightness(0)}
+.pr-choice{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pr-choice .btn{flex-direction:column;align-items:flex-start;gap:4px;padding:14px 16px;white-space:normal;text-align:left;height:100%}
+.pr-choice .btn small{font-weight:400;color:var(--mut);font-size:12.5px}
+
 /* ---- cloud login ---- */
 .lgn{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;padding:20px;background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='84'%3E%3Cpath d='M8 28L21 15L34 28' fill='none' stroke='%23FFC000' stroke-width='3.8' opacity='0.22'/%3E%3Cpath d='M15 32L21 26L27 32Z' fill='%23FFC000' opacity='0.22'/%3E%3Cpath d='M50 70L63 57L76 70' fill='none' stroke='%23FFC000' stroke-width='3.8' opacity='0.22'/%3E%3Cpath d='M57 74L63 68L69 74Z' fill='%23FFC000' opacity='0.22'/%3E%3C/svg%3E");background-size:64px 64px}
 .lgn[hidden]{display:none}
@@ -318,7 +356,7 @@ const MONL=['January','February','March','April','May','June','July','August','S
 const fd=s=>{const d=pd(s);return d?d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear():''};
 const days=(a,b)=>{if(!a||!b)return 0;return Math.max(1,Math.round((pd(b)-pd(a))/864e5)+1)};
 
-function blank(){return{settings:{business:'Outram Concrete & Asphalt Solutions Inc',owner:'Ijariah Outram',phone:'246-822-3288',email:'outrammixers@gmail.com',tin:'1000294809186',address:'Byde Mill, St. George, Barbados',hours:'Mon–Sat, 9–5. Closed Sundays.',bank:'Republic Bank',branch:'Limegrove',acctName:'Outram Concrete',acctNo:'400000121866',acctType:'Chequing',cashNote:'Pay in cash at Byde Mill, St. George, Monday to Saturday, 9 to 5.',invPrefix:'INV-',qtPrefix:'QT-',rcPrefix:'RC-',dailyRate:0,taxRate:0,taxLabel:'VAT',dueDays:7,model:'MT-480 2-bag diesel mixer, 9 HP',terms:'Thank you for choosing Outram. Please read and understand your rental agreement before signing. Our haulers handle all deliveries and pick-ups.',fees:{...DEF_FEES}},customers:[],mixers:[],bookings:[],docs:[],payments:[],expenses:[],listings:[],counters:{inv:0,qt:0,rc:0},lastBackup:null}}
+function blank(){return{settings:{business:'Outram Concrete & Asphalt Solutions Inc',owner:'Ijariah Outram',phone:'246-822-3288',email:'outrammixers@gmail.com',tin:'1000294809186',website:'designifybim-ship-it.github.io/outram',address:'Byde Mill, St. George, Barbados',hours:'Mon–Sat, 9–5. Closed Sundays.',bank:'Republic Bank',branch:'Limegrove',acctName:'Outram Concrete',acctNo:'400000121866',acctType:'Chequing',cashNote:'Pay in cash at Byde Mill, St. George, Monday to Saturday, 9 to 5.',invPrefix:'INV-',qtPrefix:'QT-',rcPrefix:'RC-',dailyRate:0,taxRate:0,taxLabel:'VAT',dueDays:7,model:'MT-480 2-bag diesel mixer, 9 HP',terms:'Thank you for choosing Outram. Please read and understand your rental agreement before signing. Our haulers handle all deliveries and pick-ups.',fees:{...DEF_FEES}},customers:[],mixers:[],bookings:[],docs:[],payments:[],expenses:[],listings:[],counters:{inv:0,qt:0,rc:0},lastBackup:null}}
 function normalize(d){try{if(d&&d.settings){const b=blank();d.settings={...b.settings,...d.settings,email:d.settings.email||b.settings.email,tin:d.settings.tin||b.settings.tin,fees:{...DEF_FEES,...(d.settings.fees||{})}};for(const k of ['customers','mixers','bookings','docs','payments','expenses','listings'])d[k]=d[k]||[];d.counters=d.counters||{inv:0,qt:0,rc:0};return d}}catch(e){}return blank()}
 let DB=blank();function getDB(){return DB}function setDB(d){DB=d}
 function save(){updBk();if(window.cloudSave)window.cloudSave()}
@@ -443,9 +481,9 @@ V.bookings=function(){
  let list=DB.bookings.filter(b=>bf==='All'||(bf==='Active'?(b.status==='Booked'||b.status==='Out on site'):b.status===bf));
  if(bq)list=list.filter(b=>(cname(b.customerId)+' '+mname(b.mixerId)+' '+(b.parish||'')).toLowerCase().includes(bq.toLowerCase()));
  list.sort((a,b)=>bf==='Returned'||bf==='All'?b.start.localeCompare(a.start):a.start.localeCompare(b.start));
- let h=hdr('Bookings','Rentals, deliveries and returns',`<button class="btn" onclick="printAgreement()">${ic('agreement-clipboard')}Blank agreement</button><button class="btn" onclick="location.hash='calendar'">${ic('booking-calendar')}Calendar</button><button class="btn y" onclick="editBooking()">${ic('booking-calendar','k')}New booking</button>`);
+ let h=hdr('Bookings','Rentals, deliveries and returns',`<button class="btn" onclick="agreementMenu()">${ic('agreement-clipboard')}Blank agreement</button><button class="btn" onclick="location.hash='calendar'">${ic('booking-calendar')}Calendar</button><button class="btn y" onclick="editBooking()">${ic('booking-calendar','k')}New booking</button>`);
  h+=`<div class="tools"><div class="tabs">${['Active','Booked','Out on site','Returned','Cancelled','All'].map(t=>`<button class="${t===bf?'on':''}" onclick="bf='${t}';V.bookings()">${t}</button>`).join('')}</div><input class="search" placeholder="Search customer, mixer or parish" value="${esc(bq)}" oninput="bq=this.value;V.bookings();const s=document.querySelector('.search');s.focus();s.setSelectionRange(s.value.length,s.value.length)"></div>`;
- h+=`<div class="card">${list.length?`<div class="tw"><table><tr><th>Customer</th><th>Mixer</th><th>Dates</th><th>Parish</th><th>Status</th><th class="r">Total</th><th></th></tr>${list.map(b=>{const inv=DB.docs.find(d=>d.bookingId===b.id&&d.type==='invoice');return`<tr><td class="b">${esc(cname(b.customerId))}</td><td>${esc(mname(b.mixerId))}</td><td>${fd(b.start)} to ${fd(b.end)}<div class="small muted">${days(b.start,b.end)} day${days(b.start,b.end)===1?'':'s'}</div></td><td>${esc(b.parish||'')}</td><td>${bkPill(b.status)}</td><td class="r">${money(bkTotal(b))}</td><td><div class="act">${b.status==='Booked'?`<button class="btn sm k" onclick="setBk('${b.id}','Out on site')">Delivered</button>`:''}${b.status==='Out on site'?`<button class="btn sm k" onclick="setBk('${b.id}','Returned')">Returned</button>`:''}${inv?`<button class="btn sm" onclick="printDoc('${inv.id}')">${esc(inv.no)}</button>`:`<button class="btn sm y" onclick="invoiceFromBooking('${b.id}')">Invoice</button>`}<button class="btn sm" onclick="printAgreement('${b.id}')">Agreement</button><button class="btn sm" onclick="editBooking('${b.id}')">Edit</button></div></td></tr>`}).join('')}</table></div>`:emptyBox('booking-calendar','No bookings here.',`<button class="btn sm y" onclick="editBooking()">New booking</button>`)}</div>`;
+ h+=`<div class="card">${list.length?`<div class="tw"><table><tr><th>Customer</th><th>Mixer</th><th>Dates</th><th>Parish</th><th>Status</th><th class="r">Total</th><th></th></tr>${list.map(b=>{const inv=DB.docs.find(d=>d.bookingId===b.id&&d.type==='invoice');return`<tr><td class="b">${esc(cname(b.customerId))}</td><td>${esc(mname(b.mixerId))}</td><td>${fd(b.start)} to ${fd(b.end)}<div class="small muted">${days(b.start,b.end)} day${days(b.start,b.end)===1?'':'s'}</div></td><td>${esc(b.parish||'')}</td><td>${bkPill(b.status)}</td><td class="r">${money(bkTotal(b))}</td><td><div class="act">${b.status==='Booked'?`<button class="btn sm k" onclick="setBk('${b.id}','Out on site')">Delivered</button>`:''}${b.status==='Out on site'?`<button class="btn sm k" onclick="setBk('${b.id}','Returned')">Returned</button>`:''}${inv?`<button class="btn sm" onclick="printDoc('${inv.id}')">${esc(inv.no)}</button>`:`<button class="btn sm y" onclick="invoiceFromBooking('${b.id}')">Invoice</button>`}<button class="btn sm" onclick="agreementMenu('${b.id}')">Agreement</button><button class="btn sm" onclick="editBooking('${b.id}')">Edit</button></div></td></tr>`}).join('')}</table></div>`:emptyBox('booking-calendar','No bookings here.',`<button class="btn sm y" onclick="editBooking()">New booking</button>`)}</div>`;
  $('#main').innerHTML=h};
 function setBk(id,s){const b=DB.bookings.find(x=>x.id===id);b.status=s;save();toast(s==='Out on site'?'Marked as delivered':'Marked as returned');render()}
 function editBooking(id,pre={}){
@@ -572,7 +610,7 @@ function delExpense(id){if(!confirm('Delete this expense?'))return;DB.expenses=D
 /* ---------- SETTINGS ---------- */
 V.settings=function(){const s=DB.settings;const F=(k,l,t='text',h='')=>`<label class="fl">${l}${h?` <span class="hint">${h}</span>`:''}<input type="${t}" ${t==='number'?'step="0.01"':''} data-k="${k}" value="${esc(s[k]??'')}"></label>`;
  let h=hdr('Settings & backup','Business details on your invoices, prices and your data',`<button class="btn y" onclick="saveSettings()">Save settings</button>`);
- h+=`<div class="grid g2"><div class="card"><h2>${ic('office-building')}Business details</h2><div class="f f2">${F('business','Business name')}${F('owner','Your name')}${F('phone','Phone / WhatsApp')}${F('email','Email')}${F('tin','TIN')}<div></div><div class="span2">${F('address','Address')}</div><div class="span2">${F('hours','Opening hours')}</div></div></div>
+ h+=`<div class="grid g2"><div class="card"><h2>${ic('office-building')}Business details</h2><div class="f f2">${F('business','Business name')}${F('owner','Your name')}${F('phone','Phone / WhatsApp')}${F('email','Email')}${F('tin','TIN')}${F('website','Website','text','Shown on agreements')}<div class="span2">${F('address','Address')}</div><div class="span2">${F('hours','Opening hours')}</div></div></div>
  <div class="card"><h2>${ic('bank')}How customers pay</h2><div class="f f2">${F('bank','Bank')}${F('branch','Branch')}${F('acctName','Account name')}${F('acctNo','Account number')}${F('acctType','Account type')}<div></div><label class="fl span2">Cash payments<textarea data-k="cashNote">${esc(s.cashNote||'')}</textarea></label></div></div>
  <div class="card"><h2>${ic('invoice')}Invoices and quotes</h2><div class="f f3">${F('invPrefix','Invoice prefix')}${F('qtPrefix','Quote prefix')}${F('rcPrefix','Receipt prefix')}${F('dailyRate','Daily rental rate ($)','number')}${F('dueDays','Days to pay','number')}${F('taxRate','Tax rate (%)','number','0 if not charging VAT')}${F('taxLabel','Tax name')}<div class="span2">${F('model','Mixer description')}</div><label class="fl span3">Default notes and terms<textarea data-k="terms">${esc(s.terms||'')}</textarea></label></div></div>
  <div class="card"><h2>${ic('delivery')}Delivery fees by parish</h2><div class="f f3">${PARISHES.map(p=>`<label class="fl">${p}<input type="number" step="0.01" data-fee="${esc(p)}" value="${esc(s.fees[p]??'')}"></label>`).join('')}</div></div>
@@ -626,21 +664,67 @@ function demo(){if((DB.customers.length||DB.bookings.length)&&!confirm('Add samp
 
 
 /* ---------- RENTAL AGREEMENT (prints like the invoices) ---------- */
-const AGR_TERMS=[
- ['Condition of Equipment','The Renter acknowledges that the Equipment has been received in good condition. It must be returned in comparable condition, accounting for reasonable wear and tear.'],
- ['Usage and Safety','The Renter must adhere to all manufacturer safety and usage guidelines. The Equipment must not be tampered with inappropriately.'],
- ['Supervision','The Equipment shall not be used by children without appropriate adult supervision.'],
- ['Restrictions','The Renter agrees not to loan or sublet the equipment to any other individuals or organizations.'],
- ['Repossession','The Renter grants Outram Concrete & Asphalt Solutions Inc. the right to enter the Renter’s premises at any time to repossess the Equipment.'],
- ['Maintenance and Repair','If a malfunction occurs, the Renter must call the company immediately to report it for exchange or repair. The Renter shall not attempt independent repairs.']];
-const AGR_WAIVER=[
- ['Assumption of Risk','The Renter assumes all responsibility for any damage to the Equipment or injury to persons resulting from the use of the Equipment during the rental period.'],
- ['Release of Liability','The Renter agrees to release and hold harmless Outram Concrete & Asphalt Solutions Inc. from any and all claims arising from the use of the equipment.'],
- ['Damages','In the event the “hold harmless” clause is found legally unenforceable, the Renter agrees to limit any damages claimed.'],
- ['Costs','The Renter agrees to pay all repair or replacement costs, including labor, incurred due to damage during the rental period.']];
+const AGR_CO='Outram Concrete & Asphalt Solutions Inc.';
+const AGR_S1=[
+ ['Definitions','In this Agreement, “the Company” means Outram Concrete & Asphalt Solutions Inc.; “the Renter” means the person named in the Renter Details above; “the Equipment” means the equipment identified in the Rental Particulars above, together with all parts, attachments, accessories and fuel supplied with it; and “the Rental Period” means the period beginning when the Equipment is delivered to the Renter and ending when the Equipment is collected by the Company.'],
+ ['Ownership','The Equipment is and shall at all times remain the sole and exclusive property of the Company. Nothing in this Agreement transfers, or shall be construed as transferring, any ownership or other proprietary interest in the Equipment to the Renter. The Renter holds the Equipment only as a bailee for the Company for the Rental Period.'],
+ ['Rental Period and Return','The Equipment is rented solely for the Rental Period stated above. The Renter shall make the Equipment available for collection by the Company, at the delivery site, on the rental end date. Any extension of the Rental Period must be requested before the end date and agreed by the Company in writing, which includes WhatsApp, text message or email. If the Equipment is not made available for collection on the end date, rental charges shall continue to accrue at the agreed daily rate for each day or part of a day until the Equipment is recovered by the Company.'],
+ ['Condition of Equipment','The Renter acknowledges that the Equipment was received in good working order and condition. The Renter shall return the Equipment in the same condition, clean and free of hardened concrete, reasonable wear and tear excepted. Any cleaning required on return shall be charged to the Renter.'],
+ ['Use and Safety','The Renter shall operate the Equipment strictly in accordance with the manufacturer’s safety and usage guidelines and the instructions given by the Company at handover. The Equipment shall be used only by competent adults, shall not be loaded beyond its rated two-bag capacity, and shall not be tampered with, modified or dismantled, nor shall any part, label or identification mark be removed.'],
+ ['Supervision','The Equipment shall not be used or operated by, or left accessible to, children without appropriate adult supervision at all times.'],
+ ['Location of Equipment','The Equipment shall remain at the delivery site stated above for the entire Rental Period. The Renter shall not move the Equipment, or permit it to be moved, to any other location without the prior written consent of the Company.'],
+ ['Restrictions','The Renter shall not loan, sublet, sell, pledge, hire out or otherwise part with possession or control of the Equipment to any other individual or organisation, and shall not allow any lien or claim to arise over it.'],
+ ['Communication','From delivery until the Equipment is recovered by the Company, the Renter shall remain contactable at the telephone number and email address given above, and shall respond to the Company’s calls, messages and emails within twenty-four (24) hours. The Renter shall notify the Company immediately of any change in contact details.'],
+ ['Maintenance and Repair','If the Equipment malfunctions, the Renter shall stop using it and report the malfunction to the Company immediately so that it may be exchanged or repaired. The Renter shall not attempt, or allow any third party to attempt, independent repairs.'],
+ ['Default','The Renter shall be in default of this Agreement if: (a) the Equipment is not made available for collection on the end date and no extension has been agreed in writing; (b) the Renter fails to respond to the Company’s calls, messages or emails for forty-eight (48) hours or more during the Rental Period or after the end date; (c) the Equipment is moved from the delivery site without the Company’s written consent; (d) any sum due under this Agreement remains unpaid after it falls due; or (e) the Equipment is misused, damaged, neglected or placed at risk of loss.'],
+ ['Repossession','Upon any default, the Company may terminate this Agreement immediately and, without further notice or demand, recover the Equipment from the delivery site or from any other place where it is located. The Renter hereby grants the Company, its employees, agents and haulers an irrevocable licence to enter the delivery site, and any land or premises owned, occupied or controlled by the Renter, at any reasonable time, for the purpose of inspecting or recovering the Equipment, and the Renter shall ensure that such access is provided. The Company shall not be liable for any loss or inconvenience caused to the Renter by the lawful recovery of the Equipment.'],
+ ['Recovery Costs and Unlawful Retention','The Renter shall pay all costs incurred by the Company in locating, recovering and returning the Equipment, including hauling, labour, travel and legal fees. Retention of the Equipment after the end date without the Company’s written consent, or failure to make the Equipment available for recovery, shall be treated as the unlawful retention of the Company’s property. In such event the Company reserves the right to report the matter to the Royal Barbados Police Force and to pursue all remedies available to it at law, including recovery of the Equipment, the full replacement value of the Equipment if it is not recovered, all outstanding rental charges and all costs.'],
+ ['Payment','All rental charges, delivery and collection fees and other sums due under this Agreement shall be paid as agreed with the Company. Any sum outstanding when the Equipment is collected shall be settled in full at that time.']];
+const AGR_S2_CARE='It is the sole responsibility of the Renter to ensure that all possible precautions are taken to prevent any risk of personal injury to any person and any loss of or damage to the Equipment. The Equipment remains the sole responsibility of the Renter from the time it is delivered until the time it is collected by the Company, whether or not it is in use.';
+const AGR_S2=[
+ ['Assumption of Risk','The Renter assumes all risk and full responsibility for any loss of or damage to the Equipment, and for any injury to persons or damage to property, resulting from the use, operation, transport or storage of the Equipment during the Rental Period.'],
+ ['Release of Liability','To the fullest extent permitted by law, the Renter releases, and agrees to hold harmless, Outram Concrete & Asphalt Solutions Inc., its directors, employees and agents from any and all claims, demands, losses, costs and liabilities arising out of or in connection with the use of the Equipment.'],
+ ['Indemnity','The Renter shall indemnify and keep indemnified the Company against all claims brought by any third party, and all losses, costs and expenses incurred by the Company, arising from the Renter’s use of the Equipment or any breach of this Agreement.'],
+ ['Damages','In the event that the hold-harmless provisions of this Agreement are found by a court to be unenforceable in whole or in part, the Renter agrees that any damages claimed against the Company shall be limited to the total rental charges paid under this Agreement.'],
+ ['Repair, Loss and Replacement Costs','The Renter shall pay all costs of repairing any damage to the Equipment occurring during the Rental Period, including parts and labour. If the Equipment is lost, stolen, not returned, or damaged beyond economical repair, the Renter shall pay the Company the full replacement value of the Equipment in addition to all other sums due.']];
+const AGR_S3=[
+ ['Notices','Any notice or message from the Company to the Renter may be given by telephone, WhatsApp, text message or email to the contact details provided above, and shall be deemed received when sent.'],
+ ['Entire Agreement','This Agreement constitutes the entire agreement between the parties in respect of the rental of the Equipment. No variation shall be effective unless agreed by the Company in writing.'],
+ ['Severability','If any provision of this Agreement is found to be invalid or unenforceable, the remaining provisions shall continue in full force and effect.'],
+ ['Governing Law','This Agreement shall be governed by and construed in accordance with the laws of Barbados, and the parties submit to the jurisdiction of the courts of Barbados.']];
 function agrFld(label,v,wide){return`<div class="fld${wide?' wide':''}"><div class="l">${label}</div><div class="v">${v?esc(v):''}</div></div>`}
-function agrList(items){return`<ol>${items.map(([h,t])=>`<li><div><b>${esc(h)}:</b> ${esc(t)}</div></li>`).join('')}</ol>`}
-function printAgreement(bid){
+function agrList(items,start){return`<ol style="counter-reset:t ${(start||1)-1}">${items.map(([h,t])=>`<li><div><b>${esc(h)}</b>${esc(t)}</div></li>`).join('')}</ol>`}
+const AGR_ICO={
+ phone:'<svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z" fill="none" stroke="#151515" stroke-width="1.8" stroke-linejoin="round"/><path d="M14.5 2.5a7 7 0 0 1 7 7" fill="none" stroke="#FFC000" stroke-width="2" stroke-linecap="round"/></svg>',
+ mail:'<svg viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2" fill="none" stroke="#151515" stroke-width="1.8"/><path d="M3 6.5l9 6.5 9-6.5" fill="none" stroke="#151515" stroke-width="1.8" stroke-linejoin="round"/><circle cx="20" cy="5" r="2.6" fill="#FFC000"/></svg>',
+ web:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5" fill="none" stroke="#151515" stroke-width="1.8"/><path d="M2.5 12h19M12 2.5c3 3 3 16 0 19M12 2.5c-3 3-3 16 0 19" fill="none" stroke="#151515" stroke-width="1.6"/><circle cx="12" cy="12" r="2" fill="#FFC000"/></svg>',
+ pin:'<svg viewBox="0 0 24 24"><path d="M20 10c0 5-5.5 10.2-7.4 11.8a1 1 0 0 1-1.2 0C9.5 20.2 4 15 4 10a8 8 0 0 1 16 0" fill="none" stroke="#151515" stroke-width="1.8"/><circle cx="12" cy="10" r="2.8" fill="#FFC000" stroke="#151515" stroke-width="1.6"/></svg>'};
+function agrShell(page,total,meta,body,bw){const s=DB.settings;if(page>1)return`<div class="doc agrdoc cont${bw?' bw':''}"><div class="pat"></div><div class="wm">${LOGO_LIGHT}</div>
+ <div class="ah"><div class="lg">${LOGO_LIGHT}</div><div class="cont-t"><b>Equipment rental agreement &amp; liability waiver</b><span>Page ${page} of ${total}</span></div></div><div class="bar"></div>
+ ${body}
+ <div class="df"><span class="sl">We bring the mixer. You build the dream.</span><span>${ic('phone','b')}${esc(s.phone)}</span><span>${ic('location','b')}${esc(String(s.address||'').replace(/, Barbados$/,''))}</span></div></div>`;const web=String(s.website||'').replace(/^https?:\/\//,'').replace(/\/$/,'');
+ const ct=[s.phone&&[AGR_ICO.phone,`<b>${esc(s.phone)}</b>&nbsp;Call or WhatsApp`],s.email&&[AGR_ICO.mail,esc(s.email)],web&&[AGR_ICO.web,esc(web)],s.address&&[AGR_ICO.pin,esc(s.address)]].filter(Boolean);
+ return`<div class="doc agrdoc${bw?' bw':''}"><div class="pat"></div><div class="wm">${LOGO_LIGHT}</div>
+ <div class="ah"><div class="lg">${LOGO_LIGHT}</div><div class="ct">${ct.map(([i,t])=>`<div><span>${t}</span>${i}</div>`).join('')}</div></div>
+ <div class="bar"></div>
+ <div class="at"><div><h1>Equipment rental agreement</h1><div class="sub">&amp; liability waiver · page ${page} of ${total}</div></div><table>${meta.map(([a,b])=>`<tr><td>${a}</td><td><b>${b}</b></td></tr>`).join('')}</table></div>
+ ${body}
+ <div class="df"><span class="sl">We bring the mixer. You build the dream.</span><span>${ic('phone','b')}${esc(s.phone)}</span><span>${ic('location','b')}${esc(String(s.address||'').replace(/, Barbados$/,''))}</span></div></div>`}
+function agreementMenu(bid){const c=bid?cust((DB.bookings.find(x=>x.id===bid)||{}).customerId):null;
+ modal('Print rental agreement'+(c?' · '+esc(c.name):''),'agreement-clipboard',`<div class="pr-choice">
+ <button class="btn y" onclick="closeM();printAgreement(${bid?`'${bid}'`:'null'},false)"><b>Colour</b><small>Gold and black, like your invoices.</small></button>
+ <button class="btn" onclick="closeM();printAgreement(${bid?`'${bid}'`:'null'},true)"><b>Black &amp; white</b><small>No gold or black blocks, to save ink.</small></button></div>`,
+ `<button class="btn" onclick="closeM()">Cancel</button>`)}
+function agrClause(n,h,t){return`<ol style="counter-reset:t ${n-1}"><li><div><b>${esc(h)}</b>${esc(t)}</div></li></ol>`}
+function agrPaginate(blocks,meta,bw){
+ const tmp=document.createElement('div');tmp.style.cssText='position:absolute;left:-10000px;top:0;visibility:hidden;width:210mm';document.body.appendChild(tmp);
+ const limit=Math.ceil(297*96/25.4)+1;
+ const fits=(arr,n)=>{tmp.innerHTML=agrShell(n,9,meta,`<div class="agr">${arr.join('')}</div>`,bw);return tmp.firstElementChild.scrollHeight<=limit};
+ const pages=[];let cur=[];
+ for(const bk of blocks){if(fits(cur.concat(bk),pages.length+1))cur.push(bk);else{if(cur.length)pages.push(cur);cur=[bk]}}
+ if(cur.length)pages.push(cur);tmp.remove();
+ return pages.map((p,i)=>agrShell(i+1,pages.length,meta,`<div class="agr">${p.join('')}</div>`,bw)).join('')}
+function printAgreement(bid,bw){
  const b=bid?DB.bookings.find(x=>x.id===bid):null;const c=b?cust(b.customerId):null;const m=b?mixer(b.mixerId):null;
  const contact=c?[c.phone,c.email].filter(Boolean).join(' · '):'';
  const home=c?[c.address,c.parish].filter(Boolean).join(', '):'';
@@ -648,19 +732,20 @@ function printAgreement(bid){
  const site=b?[b.site,b.parish].filter(Boolean).join(', '):'';
  const when=d=>d?fd(d)+'     Time: ________':'';
  const meta=[['Date',fd(today())]];if(b)meta.push(['Rental',`${fd(b.start)} to ${fd(b.end)}`]);
- const p1=`<div class="agr"><h2>Section 1: Rental agreement</h2>
-  <h3>Renter details</h3><div class="flds">${agrFld('Full name',c&&c.name,true)}${agrFld('Contact information',contact)}${agrFld('Home address',home)}</div>
-  <h3>Rental particulars</h3><div class="flds">${agrFld('Equipment reference #',equip,true)}${agrFld('Rental start date / time',b&&when(b.start))}${agrFld('Rental end date / time',b&&when(b.end))}${b?agrFld('Delivery site',site,true):''}</div>
-  <h3>Terms and conditions</h3>${agrList(AGR_TERMS)}</div>`;
- const p2=`<div class="agr"><h2>Section 2: Liability waiver &amp; release</h2>
-  <h3>Responsibility for care</h3><p>It is the responsibility of the Renter to ensure all possible precautions are taken to prevent risk of personal injury or damage to the equipment. The Equipment remains the sole responsibility of the Renter from the time of check-out until it is returned.</p>
-  <h3>Indemnification and release</h3>${agrList(AGR_WAIVER)}
-  <h3>Acknowledgment and signature</h3><div class="ack">By signing below, I acknowledge that I have read, understood, and agreed to the terms of both the Rental Agreement and the Liability Waiver.</div>
-  <div class="sig">${agrFld('Print name','')}${agrFld('Signature','')}${agrFld('Date','')}</div>
-  ${c?`<div class="note">Renter: ${esc(c.name)}${b?' · '+esc(mname(b.mixerId))+', '+fd(b.start)+' to '+fd(b.end):''}</div>`:''}</div>`;
- const html=docShell('Rental agreement','',meta,p1)+docShell('Liability waiver','',meta,p2);
- doPrint(html,'Outram rental agreement'+(c?' - '+c.name:''));
+ const H2=(t,first)=>`<h2${first?'':' style="margin-top:8mm"'}>${t}</h2>`;
+ const blocks=[];
+ blocks.push(H2('Section 1: Rental agreement',true)+`<h3>Renter details</h3><div class="flds">${agrFld('Full name',c&&c.name,true)}${agrFld('Telephone / email',contact)}${agrFld('Home address',home)}</div>`);
+ blocks.push(`<h3>Rental particulars</h3><div class="flds">${agrFld('Equipment reference #',equip,true)}${agrFld('Rental start date / time',b&&when(b.start))}${agrFld('Rental end date / time',b&&when(b.end))}${agrFld('Delivery site',site,true)}${agrFld('Daily rental rate',b&&num(b.rate)?money(b.rate):'')}${agrFld('Replacement value of equipment','')}</div>`);
+ AGR_S1.forEach(([h,t],i)=>blocks.push((i===0?'<h3>Terms and conditions</h3>':'')+agrClause(i+1,h,t)));
+ blocks.push(H2('Section 2: Liability waiver &amp; release')+`<h3>Responsibility for care</h3><p>${esc(AGR_S2_CARE)}</p>`);
+ AGR_S2.forEach(([h,t],i)=>blocks.push(agrClause(i+1,h,t)));
+ AGR_S3.forEach(([h,t],i)=>blocks.push((i===0?H2('Section 3: General'):'')+agrClause(i+1,h,t)));
+ blocks.push(`<h3>Acknowledgment and signature</h3><div class="ack">By signing below, the Renter acknowledges that they have read, understood and agreed to be bound by all the terms of this Rental Agreement and Liability Waiver, including the Company’s rights of repossession and recovery of costs set out in Section 1.</div>`);
+ blocks.push(`<div class="sig"><div class="h">Renter</div>${agrFld('Print name','')}${agrFld('Signature','')}${agrFld('Date','')}</div>`);
+ blocks.push(`<div class="sig"><div class="h">For ${esc(AGR_CO)}</div>${agrFld('Print name','')}${agrFld('Signature','')}${agrFld('Date','')}</div>${c?`<div class="note">Renter: ${esc(c.name)}${b?' · '+esc(mname(b.mixerId))+', '+fd(b.start)+' to '+fd(b.end):''}</div>`:''}`);
+ doPrint(agrPaginate(blocks,meta,bw),'Outram rental agreement'+(c?' - '+c.name:'')+(bw?' (B&W)':''));
 }
+
 /* ---------- FOR SALE (shown on the website's Buy page) ---------- */
 const SALE_ST=['Available','Reserved','Sold'];
 let LPH='';
@@ -685,10 +770,11 @@ function editListing(id){const l=id?(DB.listings||[]).find(x=>x.id===id):{title:
  <div class="span2 l-prev" id="l_prev">${LPH?`<img src="${LPH}" alt="">`:''}</div></div>
  <p class="meta" style="margin:10px 0 0">If you leave the price blank, the website shows "Message for price".</p>`,
  `${id?`<button class="btn red" onclick="delListing('${id}')">Delete</button>`:''}<button class="btn" onclick="closeM()">Cancel</button><button class="btn y" onclick="saveListing(${id?`'${id}'`:''})">Save listing</button>`)}
-function lPhoto(inp){const f=inp.files&&inp.files[0];if(!f)return;const url=URL.createObjectURL(f);const img=new Image();
- img.onload=()=>{let q=.82,max=1400,out='';for(let i=0;i<5;i++){const sc=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight));const c=document.createElement('canvas');c.width=Math.max(1,Math.round(img.naturalWidth*sc));c.height=Math.max(1,Math.round(img.naturalHeight*sc));const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(img,0,0,c.width,c.height);out=c.toDataURL('image/jpeg',q);if(out.length<600000)break;q=Math.max(.5,q-.1);max=Math.round(max*.8)}
-  URL.revokeObjectURL(url);LPH=out;const p=document.getElementById('l_prev');if(p)p.innerHTML=`<img src="${out}" alt="">`};
+function shrinkPhoto(f,done,maxStart){const url=URL.createObjectURL(f);const img=new Image();
+ img.onload=()=>{let q=.82,max=maxStart||1400,out='';for(let i=0;i<5;i++){const sc=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight));const c=document.createElement('canvas');c.width=Math.max(1,Math.round(img.naturalWidth*sc));c.height=Math.max(1,Math.round(img.naturalHeight*sc));const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(img,0,0,c.width,c.height);out=c.toDataURL('image/jpeg',q);if(out.length<600000)break;q=Math.max(.5,q-.1);max=Math.round(max*.8)}
+  URL.revokeObjectURL(url);done(out)};
  img.onerror=()=>{URL.revokeObjectURL(url);alert('That file isn\'t a photo this browser can open. Try a JPG or PNG.')};img.src=url}
+function lPhoto(inp){const f=inp.files&&inp.files[0];if(!f)return;shrinkPhoto(f,out=>{LPH=out;const p=document.getElementById('l_prev');if(p)p.innerHTML=`<img src="${out}" alt="">`})}
 function saveListing(id){const t=val('l_title');if(!t)return alert('Please give the listing a title.');DB.listings=DB.listings||[];
  let l=id?DB.listings.find(x=>x.id===id):null;if(!l){l={id:uid(),created:new Date().toISOString()};DB.listings.push(l)}
  Object.assign(l,{title:t,condition:val('l_cond'),price:val('l_price'),status:val('l_status')||'Available',desc:val('l_desc'),photo:LPH||''});
